@@ -1,6 +1,6 @@
 {
     "title": "Quick Grid Align",
-    "description": "desc",
+    "description": "Small utility to quickly align the background image to the grid.",
     "id": "quick-grid-align",
     "version": "1.0",
     "authors": [
