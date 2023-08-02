@@ -92,42 +92,87 @@ export class QuickGridAlign extends FormApplication {
         canvasContainer.appendChild(canvas);
         redrawCanvas();
 
+        const dotSize = 30;
+
         const dotStart = document.createElement("div");
         dotStart.classList.add("quick-grid-align-canvas-dot", "start");
-        canvasContainer.appendChild(dotStart);
+        dotStart.style.width = `${dotSize}px`;
+        dotStart.style.height = `${dotSize}px`;
+        dotStart.style.display = "none";
+
         const dotEnd = document.createElement("div");
         dotEnd.classList.add("quick-grid-align-canvas-dot", "end");
+        dotEnd.style.display = "none";
+        dotEnd.style.width = `${dotSize}px`;
+        dotEnd.style.height = `${dotSize}px`;
+
+        canvasContainer.appendChild(dotStart);
         canvasContainer.appendChild(dotEnd);
 
+        function addCrosshair(dotElement) {
+            const crosshair = document.createElement("div");
+            crosshair.classList.add("quick-grid-align-canvas-crosshair");
+            crosshair.style.width = `100%`;
+            crosshair.style.height = `1px`;
+            crosshair.style.left = `0px`;
+            crosshair.style.top = `50%`;
+            dotElement.appendChild(crosshair);
+
+            const crosshair2 = document.createElement("div");
+            crosshair2.classList.add("quick-grid-align-canvas-crosshair");
+            crosshair2.style.width = `1px`;
+            crosshair2.style.height = `100%`;
+            crosshair2.style.left = `50%`;
+            crosshair2.style.top = `0px`;
+            dotElement.appendChild(crosshair2);
+        }
+
+        addCrosshair(dotStart);
+        addCrosshair(dotEnd);
+
+
+        let dot = dotStart;
+
+        const halfDotSize = dotSize / 2;
+
         canvas.addEventListener("mousedown", (event) => {
+            dot.style.display = "block";
+            canvas.style.cursor = "none";
+        });
+
+        canvas.addEventListener("mousemove", (event) => {
             const rect = canvasContainer.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            dotStart.style.display = "block";
-            dotStart.style.left = `${x-5}px`;
-            dotStart.style.top = `${y - 5}px`;
-            dotPositions.start.x = x;
-            dotPositions.start.y = y;
+            dot.style.left = `${x - halfDotSize}px`;
+            dot.style.top = `${y - halfDotSize}px`;
         });
 
         canvas.addEventListener("mouseup", (event) => {
+            canvas.style.cursor = "default";
             const rect = canvasContainer.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            dotEnd.style.display = "block";
-            dotEnd.style.left = `${x-5}px`;
-            dotEnd.style.top = `${y - 5}px`;
-            dotPositions.end.x = x;
-            dotPositions.end.y = y;
 
-            const startEndDist = Math.sqrt(Math.pow(dotPositions.start.x - dotPositions.end.x, 2) + Math.pow(dotPositions.start.y - dotPositions.end.y, 2));
-            measurements.push(startEndDist);
-            const avg = Math.round(measurements.reduce((a, b) => a + b, 0) / measurements.length);
-            redrawCanvas();
-            this.element[0].querySelector(`h3.form-header`).innerHTML = `<i class="fa-duotone fa-ruler-triangle"></i> ${game.i18n.localize("quick-grid-align.quick-grid-align-app.dragAlign")} | ${game.i18n.localize("quick-grid-align.quick-grid-align-app.measurementsTaken")} - ${measurements.length}`
-            dotEnd.style.display = "none";
-            dotStart.style.display = "none";
-            this.setSquaresFromCellRadius(avg, img.width, img.height);
+            dot.style.left = `${x - halfDotSize}px`;
+            dot.style.top = `${y - halfDotSize}px`;
+            const isStart = dot === dotStart;
+            dotPositions[isStart ? "start" : "end"].x = x;
+            dotPositions[isStart ? "start" : "end"].y = y;
+
+            if (!isStart) {
+                const startEndDist = Math.sqrt(Math.pow(dotPositions.start.x - dotPositions.end.x, 2) + Math.pow(dotPositions.start.y - dotPositions.end.y, 2));
+                measurements.push(startEndDist);
+                const avg = Math.round(measurements.reduce((a, b) => a + b, 0) / measurements.length);
+                redrawCanvas();
+                this.element[0].querySelector(`h3.form-header`).innerHTML = `<i class="fa-duotone fa-ruler-triangle"></i> ${game.i18n.localize("quick-grid-align.quick-grid-align-app.dragAlign")} | ${game.i18n.localize("quick-grid-align.quick-grid-align-app.measurementsTaken")} - ${measurements.length}`
+                dotEnd.style.display = "none";
+                dotStart.style.display = "none";
+                dot = dotStart;
+                this.setSquaresFromCellRadius(avg, img.width, img.height);
+            } else {
+                dot = dotEnd;
+            }
         });
     }
 
@@ -165,6 +210,8 @@ export class QuickGridAlign extends FormApplication {
 
         this.element[0].querySelector(`input[name="squareCount.x"]`).value = cellCount.x;
         this.element[0].querySelector(`input[name="squareCount.y"]`).value = cellCount.y;
+
+        this._updateObject(null, this._getSubmitData())
     }
 
     async _updateObject(event, formData) {

@@ -14,7 +14,7 @@
             "align": "Align Grid",
             "hexInfo": "For hex grids, when counting hexes, in the event that the number of hexes is decimal (e.g. 20 and a half hexes), make sure to input the decimal amount of hexes (e.g. 20.5).",
             "dragAlign": "Measure Cell",
-            "dragAlignInfo": "Drag from a corner of the cell and release on a connecting corner of the same cell. This will measure one of the 4 sides of a square or one of the 6 sides of a hex. This measurement will be used to count the number of squares or hexes to align the grid to.\nNote that the measurement might not be exact depending on how many measurements you take and you might need to tweak the numbers by +/- 1.",
+            "dragAlignInfo": "Click a corner of the cell, then click a connecting corner of the same cell. This measures a side of the square (4 sides) or hexagon (6 sides). Keep in mind that the measurement may require slight adjustment (+/- 1) based on the number of measurements taken.",
             "measurementsTaken": "Measurements Taken"
         },
         "flags": {}

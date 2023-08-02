@@ -12,13 +12,12 @@
 }
 
 .quick-grid-align-canvas-dot {
-  width: 10px;
-  height: 10px;
   border-radius: 50%;
   position: absolute;
   pointer-events: none;
   mix-blend-mode: color-dodge;
   border: 1px solid white;
+  outline: 2px solid #ff00fc;
   left: 0px;
   top: 0px;
   display: none;
@@ -28,4 +27,10 @@
 }
 .quick-grid-align-canvas-dot.end {
   background-color: blueviolet;
+}
+.quick-grid-align-canvas-dot .quick-grid-align-canvas-crosshair {
+  position: absolute;
+  border: 1px solid white;
+  pointer-events: none;
+  mix-blend-mode: exclusion;
 }/*# sourceMappingURL=module.css.map */
