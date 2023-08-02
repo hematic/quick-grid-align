@@ -1,7 +1,19 @@
 {
     "quick-grid-align": {
-        "settings": {},
-        "app": {},
+        "tooltip": "Quick Grid Align",
+        "settings": {
+            "gridSize": {
+                "name": "Grid Size",
+                "hint": "The size to set the grid to when using the Quick Grid Align app. This value is not important for the purpose of aligning the grid, but it will determine the scale of UI elements on the canvas for that particular scene."
+            }
+        },
+        "quick-grid-align-app": {
+            "title": "Quick Grid Align",
+            "squareCount": "Square/Hex Count",
+            "currentGrid": "The current grid type is set as",
+            "align": "Align Grid",
+            "hexInfo": "For hex grids, when counting hexes, in the event that the number of hexes is decimal (e.g. 20 and a half hexes), make sure to input the decimal amount of hexes (e.g. 20.5)."
+        },
         "flags": {}
     }
 }

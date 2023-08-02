@@ -1,7 +1,16 @@
 import { MODULE_ID } from "./main.js";
 
 export function registerSettings() {
-    const settings = {};
+    const settings = {
+        "gridSize": {
+            name: `${MODULE_ID}.settings.gridSize.name`,
+            hint: `${MODULE_ID}.settings.gridSize.hint`,
+            scope: "world",
+            config: true,
+            default: 100,
+            type: Number,
+        }
+    };
 
     registerSettingsArray(settings);
 }

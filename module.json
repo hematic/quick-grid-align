@@ -1,5 +1,5 @@
 {
-    "title": "name",
+    "title": "Quick Grid Align",
     "description": "desc",
     "id": "quick-grid-align",
     "version": "1.0",
@@ -50,7 +50,7 @@
     "scripts": [
     ],
     "esmodules": [
-      "scripts/index.js"
+      "index.js"
     ],
     "styles": [
       "styles/module.css"
