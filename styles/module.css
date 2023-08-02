@@ -1,0 +1,31 @@
+.quick-grid-align-canvas-container {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0.3rem 0;
+}
+.quick-grid-align-canvas-container canvas {
+  border-radius: 5px;
+}
+
+.quick-grid-align-canvas-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: color-dodge;
+  border: 1px solid white;
+  left: 0px;
+  top: 0px;
+  display: none;
+}
+.quick-grid-align-canvas-dot.start {
+  background-color: greenyellow;
+}
+.quick-grid-align-canvas-dot.end {
+  background-color: blueviolet;
+}/*# sourceMappingURL=module.css.map */
