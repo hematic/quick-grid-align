@@ -62,11 +62,6 @@
     "download": "https://github.com/theripper93/Levels/releases/download/0.9.7.3/module.zip",
     "relationships": {
       "requires": [
-        {
-          "id": "lib-wrapper",
-          "type": "module",
-          "compatibility": {}
-        }
       ]
     },
     "compatibility": {
